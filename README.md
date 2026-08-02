@@ -29,7 +29,11 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open `http://localhost:3000`. The dashboard currently uses representative local data while the authentication screens and API client are completed in the next vertical slice.
+Open `http://localhost:3000`. The Stage 1 interface is fully interactive: users can
+add, complete, postpone, focus on, and delete tasks; manage goals; adjust capacity;
+run a five-minute focus timer; and save a daily review. Browser data is persisted
+to `localStorage`, so refreshing the page does not reset the plan. The FastAPI
+service provides authenticated server persistence for the API workflow.
 
 ## Environment variables
 
