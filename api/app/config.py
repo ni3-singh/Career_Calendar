@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     app_name: str = "Career Calendar API"
     database_url: str = "sqlite:///./career_calendar.db"
-    secret_key: str = "development-only-change-me-please"
+    secret_key: str
     access_token_minutes: int = 30
     cors_origins: str = "http://localhost:3000"
 

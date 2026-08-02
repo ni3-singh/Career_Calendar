@@ -14,6 +14,7 @@ This repository contains a Next.js web application and FastAPI service. The firs
 cd api
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+export SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
 uvicorn app.main:app --reload
 ```
 
@@ -29,6 +30,19 @@ npm run dev
 ```
 
 Open `http://localhost:3000`. The dashboard currently uses representative local data while the authentication screens and API client are completed in the next vertical slice.
+
+## Environment variables
+
+| Variable | Service | Required | Purpose |
+| --- | --- | --- | --- |
+| `SECRET_KEY` | API | Yes | Signs access tokens; use a unique random value. |
+| `DATABASE_URL` | API | Production only | PostgreSQL connection URL. Defaults to local SQLite when omitted. |
+| `CORS_ORIGINS` | API | No | Comma-separated allowed web origins; defaults to `http://localhost:3000`. |
+| `ACCESS_TOKEN_MINUTES` | API | No | Access-token lifetime; defaults to 30 minutes. |
+| `NEXT_PUBLIC_API_URL` | Web | Yes | Browser-visible API base URL, normally `http://localhost:8000`. |
+
+PostgreSQL is **not required for local development**. The API uses an ignored
+SQLite database by default. PostgreSQL is required for the production deployment.
 
 ## Quality checks
 
