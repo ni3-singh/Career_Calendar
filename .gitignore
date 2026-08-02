@@ -1,0 +1,44 @@
+# Secrets and local environment configuration (templates remain trackable)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# Python
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Test and temporary output
+playwright-report/
+test-results/
+coverage/
+*.log
+*.tmp
+*.swp
+.DS_Store
+.idea/
+.vscode/
