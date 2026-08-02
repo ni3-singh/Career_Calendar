@@ -30,3 +30,20 @@ def test_task_workflow_and_today_recommendation(client, auth_headers):
 
 def test_tasks_require_authentication(client):
     assert client.get("/api/v1/tasks").status_code == 401
+
+
+def test_task_ids_are_validated(client, auth_headers):
+    response = client.patch("/api/v1/tasks/not-a-uuid", headers=auth_headers, json={"status": "completed"})
+    assert response.status_code == 422
+
+
+def test_user_cannot_update_another_users_task(client, auth_headers):
+    task = client.post("/api/v1/tasks", headers=auth_headers, json={"title": "Private task"}).json()
+    second_user = client.post(
+        "/api/v1/auth/register",
+        json={"email": "sam@example.com", "password": "another-strong-password", "display_name": "Sam"},
+    ).json()
+    other_headers = {"Authorization": f"Bearer {second_user['access_token']}"}
+
+    response = client.patch(f"/api/v1/tasks/{task['id']}", headers=other_headers, json={"status": "completed"})
+    assert response.status_code == 404

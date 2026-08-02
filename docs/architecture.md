@@ -12,7 +12,7 @@ This separation keeps the API reusable for future native clients without adding 
 
 ## Security boundaries
 
-Passwords are hashed with bcrypt and never returned. Short-lived bearer tokens contain only a user identifier and expiry. Every repository query for user-owned data includes the authenticated user's id, preventing insecure direct object references. CORS origins and secrets are environment configuration.
+Passwords are hashed with Argon2 and never returned. Short-lived bearer tokens contain only a user identifier and expiry. Every repository query for user-owned data includes the authenticated user's id, preventing insecure direct object references. CORS origins and secrets are environment configuration.
 
 ## Priority engine
 

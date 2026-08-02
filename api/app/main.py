@@ -1,3 +1,4 @@
+import uuid
 from contextlib import asynccontextmanager
 from datetime import date, datetime, timezone
 
@@ -85,7 +86,12 @@ def create_task(payload: TaskCreate, user: User = Depends(current_user), db: Ses
 
 
 @app.patch("/api/v1/tasks/{task_id}", response_model=TaskResponse)
-def update_task(task_id: str, payload: TaskUpdate, user: User = Depends(current_user), db: Session = Depends(get_db)) -> Task:
+def update_task(
+    task_id: uuid.UUID,
+    payload: TaskUpdate,
+    user: User = Depends(current_user),
+    db: Session = Depends(get_db),
+) -> Task:
     task = db.scalar(select(Task).where(Task.id == task_id, Task.user_id == user.id))
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found")
