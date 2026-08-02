@@ -33,9 +33,18 @@ Open `http://localhost:3000`. The dashboard currently uses representative local 
 ## Quality checks
 
 ```bash
-cd api && pytest
+cd api && make test
 cd web && npm run lint && npm run build
 ```
+
+`make test` creates an isolated `.venv`, installs the exact API dependencies,
+and invokes pytest through that environment. After setup, the equivalent direct
+command is `cd api && .venv/bin/python -m pytest`.
+
+If a corporate or school proxy returns HTTP 403 while installing packages, that
+is a network policy rather than a test failure. Run the same command in GitHub
+Codespaces or configure pip with the approved package mirror; do not disable TLS
+verification.
 
 ## Documentation
 
